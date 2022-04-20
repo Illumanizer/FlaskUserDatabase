@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+<div class="emailForm mx-auto" style="width: 500px;">
+    <h1>Add database</h1>
+    <form action="/" method="POST">
+        <div class="mb-3">
+            <label for="exampleInputUsername1" class="form-label">UserName</label>
+            <input type="text" class="form-control" name="username" id="exampleInputUserName1">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<br>
+{% if allUsers|length==0 %}
+<div class="alert alert-info" role="alert">
+    No record found.
+</div>
+{% else %}
+
+
+<div class="displayTable">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                <th scope="col">S.no</th>
+                <th scope="col">id</th>
+                <th scope="col">UserName</th>
+                <th scope="col">Email</th>
+                <th scope="col">Password</th>
+                <th scope="col"> Actions</th>
+
+                <!-- <th scope="col">Time</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for User in allUsers %}
+
+            <tr>
+                <th scope="row"></th>
+                <th>{{loop.index}}</th>
+                <td>{{User.id}}</td>
+                <td>{{User.username}}</td>
+                <td>{{User.email}}</td>
+                <td>{{User.password}}</td>
+                <td><button type="button" onclick="location.href = '/delete/{{User.id}}/';"
+                        class="btn btn-danger btn-primary btn-sm "> Delete</button></td>
+                <td><button type="button" onclick="location.href = '/update/{{User.id}}/';"
+                        class="btn btn-success btn-primary btn-sm ">Update</button></td>
+                <!-- <td>{User.Time}</td>    -->
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endif %}
+<!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+{% endblock body %}
