@@ -1,0 +1,21 @@
+install heruko cli
+
+pip install gunicorn
+
+pip freeze > requirement.txt
+
+procfile->
+web: gunicorn app:app
+
+heroku login 
+->credential
+
+git init
+git add .
+git commit -m "Initial commit"
+
+heroku create <name>
+
+git remote -v	
+
+git push heroku master

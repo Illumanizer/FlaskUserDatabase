@@ -46,7 +46,14 @@ def deletePage(id):
 @app.route('/update/<int:id>',methods=['GET','POST'])
 def updatePage(id):
     if request.method=='POST': 
-        user=User(username=request.form['username'],email=request.form['email'],password=request.form['password'])
+        username=request.form['username']
+        email=request.form['email']
+        password=request.form['password']
+        user=User.query.filter_by(id=id).first()  
+        user.username=username
+        user.email=email
+        user.passowrd=password 
+        user=User(user)
         db.session.add(user)
         db.session.commit()  
         return redirect("/")
