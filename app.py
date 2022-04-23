@@ -7,7 +7,6 @@ from flask import render_template
 from sqlalchemy import create_engine
 # from dateTime import dateTime
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@localhost/flasksql'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
@@ -20,7 +19,7 @@ class User(db.Model):
     username = db.Column(db.String(80),  nullable=False)
     email = db.Column(db.String(120), nullable=False)
     password = db.Column(db.String(300), nullable=False)
-    # date_created=db.Column(db.dateTime,default=dateTime.utcnow)
+    # date_created=db.Column(db.dateTime,default=datetime.utcnow)
     
     def __repr__(self):
         return '<User %r>' % self.username
@@ -52,10 +51,10 @@ def updatePage(id):
         user=User.query.filter_by(id=id).first()  
         user.username=username
         user.email=email
-        user.passowrd=password 
-        user=User(user)
-        db.session.add(user)
-        db.session.commit()  
+        user.passowrd=password         
+        db.session.merge(user)
+        db.session.flush()
+        db.session.commit()     
         return redirect("/")
     user=User.query.filter_by(id=id).first()   
     return render_template("update.html",User=user)
